@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Loan;
 
 class LoanController extends Controller
 {
@@ -14,7 +15,8 @@ class LoanController extends Controller
      */
     public function index()
     {
-        //
+        $loans = Loan::all();
+        return $loans;
     }
 
     /**
@@ -25,7 +27,12 @@ class LoanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $loan = new Loan();
+        $loan->user_id = $request->user_id;
+        $loan->book_id = $request->book_id;
+        $loan->quantity = $request->quantity;
+
+        $loan->save();
     }
 
     /**
@@ -36,7 +43,8 @@ class LoanController extends Controller
      */
     public function show($id)
     {
-        //
+        $loan = Loan::find($id);
+        return $loan;
     }
 
     /**
@@ -48,7 +56,13 @@ class LoanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $loan = Loan::findOrFail($request->$id);
+        $loan->user_id = $request->user_id;
+        $loan->book_id = $request->book_id;
+        $loan->quantity = $request->quantity;
+
+        $loan->save();
+        return $loan;
     }
 
     /**
@@ -59,6 +73,7 @@ class LoanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $loan = Loan::destroy($id);
+        return $loan;
     }
 }

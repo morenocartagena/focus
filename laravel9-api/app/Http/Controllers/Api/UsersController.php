@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Users;
 
 class UsersController extends Controller
 {
@@ -14,7 +15,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $users = Users::all();
+        return $users;
     }
 
     /**
@@ -25,7 +27,13 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new Users();
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->role = $request->role;
+     
+        $user->save();
     }
 
     /**
@@ -36,7 +44,8 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Users::find($id);
+        return $user;
     }
 
     /**
@@ -48,7 +57,14 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = Users::findOrFail($request->$id);
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->role = $request->role;
+
+        $user->save();
+        return $user;
     }
 
     /**
@@ -59,6 +75,7 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Users::destroy($id);
+        return $user;
     }
 }

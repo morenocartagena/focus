@@ -58,7 +58,7 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $book = Book::findOrFail($request->$id);
+        $book = Book::findOrFail($request->id);
         $book->title = $request->title;
         $book->author = $request->author;
         $book->published_year = $request->published_year;

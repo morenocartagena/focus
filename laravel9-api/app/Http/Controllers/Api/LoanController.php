@@ -56,7 +56,7 @@ class LoanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $loan = Loan::findOrFail($request->$id);
+        $loan = Loan::findOrFail($request->id);
         $loan->user_id = $request->user_id;
         $loan->book_id = $request->book_id;
         $loan->quantity = $request->quantity;

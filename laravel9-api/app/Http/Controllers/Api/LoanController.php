@@ -30,6 +30,7 @@ class LoanController extends Controller
         $loan = new Loan();
         $loan->user_id = $request->user_id;
         $loan->book_id = $request->book_id;
+        $loan->title = $request->title;
         $loan->quantity = $request->quantity;
 
         $loan->save();
@@ -59,6 +60,7 @@ class LoanController extends Controller
         $loan = Loan::findOrFail($request->id);
         $loan->user_id = $request->user_id;
         $loan->book_id = $request->book_id;
+        $loan->title = $request->title;
         $loan->quantity = $request->quantity;
 
         $loan->save();

@@ -6,7 +6,12 @@ import {Link} from 'react-router-dom'
 const defaultUser = 1;
 const endpoint = 'http://127.0.0.1:8000/api';
 
-const ShowLoans = () => {
+const ShowLoans = (props) => {
+
+   const disabled = () => { 
+        if(props.role = 'librarian'){
+            disabled = 'disabled'; }  
+    } 
 
   const [loans, setLoans] = useState([])
    
@@ -25,25 +30,17 @@ const ShowLoans = () => {
     return response.data;
   } */
 
-  /* const loanBook = async (id, title, author, published_year, genre, stock) => {
-    await axios.put(`${endpoint}/loan/${id}`, {
-      title: title,
-      author: author,
-      published_year: published_year,
-      genre: genre,
-      stock: stock+1
-    }) 
+   const returnBook = async (id, book_id) => {
 
-    await axios.post(`${endpoint}/loan`, {
-      user_id: defaultUser,
-      loan_id: id,
-      quantity: 1
-    }) 
+   /* await axios.put(`${endpoint}/book/${book_id}`, {
+      stock: stock+1
+    }) */
+
+    await axios.delete(`${endpoint}/loan/${id}`, { }) 
 
     getLoans();
 
-  }
- */
+  } 
 
   return (
     <div>
@@ -58,7 +55,7 @@ const ShowLoans = () => {
             <th>Book ID</th>
             <th>Title</th>
             <th>Quantity</th>
-            {/* <th>Return book</th> */}
+            <th>Return book</th>
           </tr>
         </thead>
         <tbody>
@@ -68,11 +65,9 @@ const ShowLoans = () => {
               <td>{ loan.book_id }</td>
               <td>{ loan.title }</td>
               <td>{ loan.quantity }</td>
-              {/* <td> */}
-                {/* <Link to={`/checkout/${loan.id}`} className='btn btn-warning'>Check out</Link> */}
-                {/* <button onClick={ () => returnBook(loan.id, loan.title, loan.author, loan.published_year , 
-                  loan.genre, loan.stock) } className='btn btn-warning' >Check out</button> */}
-              {/* </td> */}
+              <td>                                           
+                  <button onClick={ () => returnBook(loan.id, loan.book_id ) } className='btn btn-danger' >Return book</button>                 
+              </td>
             </tr>
           ))}
         </tbody>
